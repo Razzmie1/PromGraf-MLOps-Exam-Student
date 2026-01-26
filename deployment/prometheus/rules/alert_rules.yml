@@ -1,0 +1,11 @@
+groups:
+  - name: bike-count-predictor-alerts
+    rules:
+      - alert: RegressorApiDown
+        expr: up{job="bike_api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "The bike count prediction API is unreachable."
+          description: "The job 'bike_api' has been DOWN (unreachable) for more than 1 minute. Please check the `bike-api` container."
