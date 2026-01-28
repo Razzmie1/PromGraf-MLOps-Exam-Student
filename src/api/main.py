@@ -10,7 +10,7 @@ import time
 from typing import Optional, Any
 
 from evidently.report import Report
-from evidently.metric_preset import DataDriftPreset, RegressionPreset
+from evidently.metrics import RegressionPerformanceMetrics, DatasetDriftMetric
 
 from fastapi import FastAPI, HTTPException, Response, Request
 from pydantic import BaseModel, Field
@@ -177,13 +177,8 @@ async def evaulate(eval_data: EvaluationData):
             status_code = "400"
             raise HTTPException(status_code=400, detail="No items provided for evaluation.")
         
-        input_arr = np.array([[row[feat] for feat in (NUM_FEATS+CAT_FEATS)] for row in eval_data.data])
-        targets = np.array([[row[TARGET]] for row in eval_data.data])
-        predictions = REGRESSOR.predict(input_arr)
-
-        # Prepare current data for Evidently
-        current_data = pd.DataFrame(input_arr, columns=NUM_FEATS+CAT_FEATS)
-        current_data[TARGET] = targets
+        current_data = pd.DataFrame(eval_data.data)[NUM_FEATS + CAT_FEATS + [TARGET]].copy()
+        predictions = REGRESSOR.predict(current_data[NUM_FEATS + CAT_FEATS])
         current_data[PREDICTION] = predictions
 
         # Column mapping for Evidently
@@ -194,7 +189,7 @@ async def evaulate(eval_data: EvaluationData):
         column_mapping.categorical_features = CAT_FEATS
 
         # Generate Evidently Report
-        report = Report(metrics=[RegressionPreset(), DataDriftPreset()])
+        report = Report(metrics=[RegressionPerformanceMetrics(), DatasetDriftMetric()])
         report.run(
             reference_data=REFERENCE_JAN11,
             current_data=current_data,
@@ -205,9 +200,10 @@ async def evaulate(eval_data: EvaluationData):
         report_dict = report.as_dict()
         dataset_drift = report_dict["metrics"][1]["result"]["dataset_drift"]
         regression_metrics = report_dict['metrics'][0]['result']['current']
+        print(f"Report Dict: {report_dict}")
         rmse = regression_metrics['rmse']
-        mae = regression_metrics['mae']
-        r2score = regression_metrics['r2']
+        mae = regression_metrics['mean_abs_error']
+        r2score = regression_metrics['r2_score']
 
         # Update Model Metrics Gauges
         model_rmse_score.set(rmse)
@@ -230,7 +226,7 @@ async def evaulate(eval_data: EvaluationData):
         status_code = str(e.status_code)
         raise
     except Exception as e:
-        logger.error(f"Error during evaluation: {e}")
+        logger.error(f"Error during evaluation: {e}", exc_info=True)
         status_code = "500"
         raise HTTPException(status_code=500, detail=f"Evaluation failed due to an internal error: {e}")
     finally:
