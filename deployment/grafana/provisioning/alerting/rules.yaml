@@ -3,7 +3,7 @@ groups:
   - orgId: 1
     name: Model Performance
     folder: Model Performance Alerts
-    interval: 1h
+    interval: 10s
     rules:
       - uid: dfbkawf2pwttsa
         title: HighRMSE
