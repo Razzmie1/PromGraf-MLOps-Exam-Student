@@ -25,7 +25,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "ffbix19u3xkaoc"
+        "uid": "promID"
       },
       "fieldConfig": {
         "defaults": {
@@ -108,7 +108,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ffbix19u3xkaoc"
+            "uid": "promID"
           },
           "editorMode": "code",
           "expr": "sum by (endpoint) (rate(api_requests_total[30m]))",
@@ -123,7 +123,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "ffbix19u3xkaoc"
+        "uid": "promID"
       },
       "fieldConfig": {
         "defaults": {
@@ -188,7 +188,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "ffbix19u3xkaoc"
+        "uid": "promID"
       },
       "fieldConfig": {
         "defaults": {
@@ -263,6 +263,6 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "API Performance",
-  "uid": "adrcff9",
+  "uid": "api_performance_dashboard",
   "version": 3
 }

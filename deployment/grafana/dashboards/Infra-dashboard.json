@@ -19,13 +19,13 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 0,
+  "id": 3,
   "links": [],
   "panels": [
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "ffbix19u3xkaoc"
+        "uid": "promID"
       },
       "fieldConfig": {
         "defaults": {
@@ -77,7 +77,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ffbix19u3xkaoc"
+            "uid": "promID"
           },
           "editorMode": "code",
           "expr": "1 - (avg by (instance) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m])))",
@@ -92,7 +92,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "ffbix19u3xkaoc"
+        "uid": "promID"
       },
       "fieldConfig": {
         "defaults": {
@@ -155,7 +155,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "ffbix19u3xkaoc"
+        "uid": "promID"
       },
       "fieldConfig": {
         "defaults": {
@@ -229,6 +229,6 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "Infrastructure Overview",
-  "uid": "ad2ds5l",
-  "version": 2
+  "uid": "infra_overview_dashboard",
+  "version": 3
 }

@@ -25,7 +25,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "ffbix19u3xkaoc"
+        "uid": "promID"
       },
       "fieldConfig": {
         "defaults": {
@@ -90,7 +90,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "ffbix19u3xkaoc"
+        "uid": "promID"
       },
       "fieldConfig": {
         "defaults": {
@@ -153,7 +153,7 @@
     },
     {
       "datasource": {
-        "uid": "ffbix19u3xkaoc"
+        "uid": "promID"
       },
       "fieldConfig": {
         "defaults": {
@@ -218,7 +218,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "ffbix19u3xkaoc"
+        "uid": "promID"
       },
       "fieldConfig": {
         "defaults": {
@@ -271,7 +271,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "ffbix19u3xkaoc"
+            "uid": "promID"
           },
           "editorMode": "code",
           "expr": "model_rmse_score",
@@ -297,6 +297,6 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "Model Performance & Drift",
-  "uid": "ad2ptmh",
+  "uid": "model_perfdrift_dashboard",
   "version": 3
 }

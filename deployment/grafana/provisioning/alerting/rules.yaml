@@ -13,7 +13,7 @@ groups:
             relativeTimeRange:
               from: 600
               to: 0
-            datasourceUid: P1809F7CD0C75ACF3
+            datasourceUid: promID
             model:
               editorMode: builder
               expr: model_rmse_score
@@ -29,7 +29,7 @@ groups:
               conditions:
                   - evaluator:
                       params:
-                          - 20
+                          - 30
                       type: gt
                     operator:
                       type: and
