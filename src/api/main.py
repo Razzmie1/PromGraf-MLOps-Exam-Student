@@ -151,13 +151,13 @@ async def predict(input: BikeSharingInput):
 
     try:
         input_dict = input.model_dump()
-        input_arr = np.array([input_dict[feat] for feat in (NUM_FEATS + CAT_FEATS)])
-        pred_cnt = REGRESSOR.predict(input_arr).item()
+        input_data = pd.DataFrame(input_dict, index=[0])[NUM_FEATS + CAT_FEATS].copy()
+        pred_cnt = REGRESSOR.predict(input_data).item()
         logger.info(f"Predicted bike count: {pred_cnt} for input: {input_dict}")
         return PredictionOutput(predicted_count=pred_cnt)
     
     except Exception as e:
-        logger.error(f"Error during prediction: {e}")
+        logger.error(f"Error during prediction: {e}", exc_info=True)
         status_code = "500"
         raise HTTPException(status_code=500, detail=f"Prediction failed due to an internal error: {e}")
     
@@ -200,7 +200,6 @@ async def evaulate(eval_data: EvaluationData):
         report_dict = report.as_dict()
         dataset_drift = report_dict["metrics"][1]["result"]["dataset_drift"]
         regression_metrics = report_dict['metrics'][0]['result']['current']
-        print(f"Report Dict: {report_dict}")
         rmse = regression_metrics['rmse']
         mae = regression_metrics['mean_abs_error']
         r2score = regression_metrics['r2_score']

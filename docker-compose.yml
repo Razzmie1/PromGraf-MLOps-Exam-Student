@@ -9,6 +9,11 @@ services:
     build: ./src/evaluation
     depends_on:
       - bike-api
+  
+  traffic-generation:
+    build: ./src/traffic_generation
+    depends_on:
+      - bike-api
 
   prometheus:
     image: prom/prometheus:latest
