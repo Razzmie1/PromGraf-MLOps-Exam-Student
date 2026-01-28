@@ -1,0 +1,7 @@
+apiVersion: 1
+
+providers:
+  - name: 'exam dashboards'
+    updateIntervalSeconds: 15
+    options:
+      path: /var/lib/grafana/dashboards
