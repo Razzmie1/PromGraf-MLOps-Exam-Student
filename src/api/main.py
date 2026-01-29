@@ -65,7 +65,7 @@ model_r2_score = Gauge(
     registry=registry
 )
 
-# Important for monitoring as it possibly explains when model performance decreases
+# Important for monitoring as it possibly explains why the model performance decreases
 evidently_data_drift_detected_status = Gauge(
     'data_drift_status',
     'Status of possible Data Drift',
